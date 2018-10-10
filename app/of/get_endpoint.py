@@ -5,7 +5,7 @@ import time
 import json
 
 name = "root"
-password = "608"
+password = "root"
 api_addr = "http://202.120.83.82:8080/api/v1"
 Apitoken = get_Apitoken(name, password, api_addr)
 
