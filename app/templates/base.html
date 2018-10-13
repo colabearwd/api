@@ -58,8 +58,9 @@
             <li><a href="{{url_for('charts')}}"><i class="fa fa-bar-chart-o"></i> Charts</a></li>
             <li><a href="{{url_for('tables')}}"><i class="fa fa-table"></i> Tables</a></li>
             <li><a href="{{url_for('forms')}}"><i class="fa fa-edit"></i> Forms</a></li>
-            <li><a href="{{url_for('mapconfig')}}"><i class="fa fa-edit"></i> Map Config </a></li>
-            <li><a href="{{url_for('endpoint_detail')}}"><i class="fa fa-edit"></i> Endpoint Detail </a></li>
+            <li><a href="{{url_for('map.mapconfig')}}"><i class="fa fa-edit"></i> Map Config </a></li>
+            <li><a href="{{url_for('endpoint.endpoint_detail')}}"><i class="fa fa-edit"></i> Endpoint Detail </a></li>
+            <li><a href="{{url_for('openfalcon')}}"><i class="fa fa-edit"></i> OpenFalcon Detail </a></li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right navbar-user">
@@ -142,8 +143,8 @@
 <script src="{{url_for('static',filename='js/jquery-1.10.2.js')}}"></script>
 <script src="{{url_for('static',filename='js/bootstrap.js')}}"></script>
 
-<!-- Page Specific Plugins -->
-<script src="{{url_for('static',filename='js/raphael-min.js')}}"></script>
+<!--&lt;!&ndash; Page Specific Plugins &ndash;&gt;-->
+<!--<script src="{{url_for('static',filename='js/raphael-min.js')}}"></script>-->
 <script src="{{url_for('static',filename='js/morris-0.4.3.min.js')}}"></script>
 <script src="{{url_for('static',filename='js/morris/chart-data-morris.js')}}"></script>
 <script src="{{url_for('static',filename='js/tablesorter/jquery.tablesorter.js')}}"></script>

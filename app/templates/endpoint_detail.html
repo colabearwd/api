@@ -21,7 +21,7 @@
         <!--<input type="submit" class="btn-block btn-primary" value="Submit">-->
     </form>
 
-    <script src="{{url_for('static',filename='js/echarts.min.js')}}"></script>
+    <script src="{{ url_for('static',filename='js/echarts.min.js' )}}"></script>
     <script>
         var endpoint_id;
         var counter_select = document.getElementById("counter_select");
@@ -36,10 +36,10 @@
 
                     var res = xhttp.responseText;
                     resjson = JSON.parse(res);
-                    alert("这个节点有" + resjson.length + "参数")
+                    alert("这个节点有" + resjson.length + "参数");
 
                     for (var i = 0; i < resjson.length; i++) {
-                        console.log(resjson[i].counter)
+                        console.log(resjson[i].counter);
 
                         //创建一个option 把数据存储在option
                         var op = new Option(resjson[i].counter, resjson[i].counter);
@@ -52,7 +52,7 @@
 
             // xhttp.open("GET", "/counter/" + m, true);
             // xhttp.send();
-            xhttp.open("POST", "/counter/", true);
+            xhttp.open("POST", "/endpoint/counter/", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send("endpoint_id="+m);
 
@@ -110,7 +110,7 @@
             // console.log("/counters/" + endpoint_id + "/" + m + "/")
             // xhttp.open("GET", "/counters/" + endpoint_id + "/" + m + "/", true);
             // xhttp.send();
-            xhttp.open("POST", "/counters/", true);
+            xhttp.open("POST", "/endpoint/counters/", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send("endpoint_id="+endpoint_id+"&counter_name="+m);
 
