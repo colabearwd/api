@@ -14,16 +14,16 @@ from endpoint_bp import *
 app.register_blueprint(map, url_prefix='/map')
 app.register_blueprint(endpoint,url_prefix='/endpoint')
 
-def require_appkey(view_function):
-    @wraps(view_function)
-    def decorated_function(*args, **kwargs):
-        if request.headers.get('X-API-KEY') and request.headers.get('X-API-KEY') == app.config["KEY"]:
-            return view_function(*args, **kwargs)
-        else:
-            result = {"success": False, "msg": "missing X-API-KEY or KEY is Wrong"}
-            return jsonify(result), 401
-
-    return decorated_function
+# def require_appkey(view_function):
+#     @wraps(view_function)
+#     def decorated_function(*args, **kwargs):
+#         if request.headers.get('X-API-KEY') and request.headers.get('X-API-KEY') == app.config["KEY"]:
+#             return view_function(*args, **kwargs)
+#         else:
+#             result = {"success": False, "msg": "missing X-API-KEY or KEY is Wrong"}
+#             return jsonify(result), 401
+#
+#     return decorated_function
 
 
 @app.route('/base', methods=['GET'])
@@ -33,18 +33,7 @@ def base():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        data = form.data
-        user = User.query.filter_by(user_name=data["username"]).first()
-        if user is not None and user.user_passwd == data["password"]:
-            login_user(user, data["remember_me"])
-            session["user"] = data["username"]
-            return redirect(request.args.get("next") or url_for("index"))
-        flash("Invalid username or password !")
-        return redirect(url_for("login"))
-
-    return render_template('login.html', form=form)
+    return render_template('login.html')
 
 
 @app.route('/logout', methods=['GET', 'POST'])
