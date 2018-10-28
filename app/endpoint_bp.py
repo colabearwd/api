@@ -1,6 +1,7 @@
+#-*-coding:utf-8-*-
 from flask import Blueprint,request,render_template,redirect
 from app.models import Map
-from app.of import get_history,get_endpoint,get_endpoint_id
+from app.of import get_history,get_dashboardnum,get_curl_res
 
 endpoint = Blueprint('endpoint',__name__)
 
@@ -20,7 +21,7 @@ def counter_list():
     # print(request.values)
     endpoint_id = request.form.get('endpoint_id')
     # print(endpoint_id)
-    counterlist = get_endpoint.get_endpoint_counter(endpoint_id,'.')
+    counterlist = get_dashboardnum.get_endpoint_counter(endpoint_id, '.')
 
     return counterlist
 

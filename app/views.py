@@ -1,15 +1,14 @@
-from flask import request, jsonify, render_template, redirect, flash, url_for, session
+
+from flask import jsonify, flash, session
 from functools import wraps
 from app import app
 from .forms import LoginForm, CurlForm, PingForm
-from .models import User, args_ping, args_curl, Map
+from .models import User, args_ping, args_curl
 from flask_login import login_user, login_required, logout_user
-from . import db
-from .of import get_endpoint_id, get_endpoint , get_history
 import json
 
-from map_bp import *
-from endpoint_bp import *
+from app.map_bp import *
+from app.endpoint_bp import *
 
 app.register_blueprint(map, url_prefix='/map')
 app.register_blueprint(endpoint,url_prefix='/endpoint')
@@ -25,7 +24,7 @@ def require_appkey(view_function):
 
     return decorated_function
 
-
+#debug 使用
 @app.route('/base', methods=['GET'])
 def base():
     return render_template('base.html')
@@ -85,15 +84,22 @@ def index():
 @login_required
 def dashboard():
     group = {
-        "endpoint_num": get_endpoint.get_endpoint_number(),
-        "liveendpoint_num": get_endpoint.get_live_endpoint_number(),
-        "pinglist_num": get_endpoint.get_pinglist_number(),
-        "curllist_num": get_endpoint.get_curllist_number()
+        "endpoint_num": get_dashboardnum.get_endpoint_number(),
+        "liveendpoint_num": get_dashboardnum.get_live_endpoint_number(),
+        "pinglist_num": get_dashboardnum.get_pinglist_number(),
+        "curllist_num": get_dashboardnum.get_curllist_number()
     }
-    res_list = get_endpoint_id.func2()
+    res_list = get_curl_res.get_curl_res()
+    res_num = get_curl_res.get_pie_arg()
+    print("=======here")
+    print(res_num)
+    return render_template('dashboard.html', res_list=res_list, **group,res_num=json.dumps(res_num))
 
-    return render_template('dashboard.html', res_list=res_list, **group)
 
+@app.route('/ajax/res_num',methods=['GET','POST'])
+def get_res_num():
+    res_num = get_curl_res.get_pie_arg()
+    return json.dumps(res_num)
 
 @app.route('/tables', methods=['GET', 'POST'])
 @login_required

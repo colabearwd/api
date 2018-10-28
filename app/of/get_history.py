@@ -1,4 +1,5 @@
-from .get_auth import get_Apitoken
+#-*-coding:utf-8-*-
+from app.of.get_auth import get_Apitoken
 import requests
 import time
 import json
@@ -6,7 +7,8 @@ from config import name,password,api_addr
 
 Apitoken = get_Apitoken(name, password, api_addr)
 
-
+# use endpoint_name & counter_name 获取过去60s的历史纪录
+# endpoint_bp.py
 def get_counter_history(endpoint_name, counter_name):
     # Apitoken = {"sig": "848b171f88ee11e882ee005056bab49f", "name": "root"}
     # Apitoken = json.dumps(Apitoken)
