@@ -62,6 +62,15 @@ class Curl_Res(db.Model):
     curl_value = db.Column(db.Float)
 
 
+class Ping_Res(db.Model):
+    __tablename__ = 'ping_res'
+    ping_id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
+    ping_endpoint = db.Column(db.String(255))
+    ping_ipversion = db.Column(db.String(255))
+    ping_targeturl = db.Column(db.String(255))
+    ping_timestamp = db.Column(db.String(255))
+    ping_value = db.Column(db.Float)
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))

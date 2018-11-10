@@ -64,13 +64,13 @@ def curl():
 
 @app.route('/index', methods=['GET', 'POST'])
 @app.route('/')
-@login_required
+# @login_required
 def index():
     return render_template('index.html')
 
 
 @app.route('/dashboard', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def dashboard():
     group = {
         "endpoint_num": get_dashboardnum.get_endpoint_number(),
@@ -78,8 +78,8 @@ def dashboard():
         "pinglist_num": get_dashboardnum.get_pinglist_number(),
         "curllist_num": get_dashboardnum.get_curllist_number()
     }
-    res_list = get_curl_res.get_curl_res()
-    res_num = get_curl_res.get_pie_arg()
+    res_list = get_curlorping_res.get_curl_res()
+    res_num = get_curlorping_res.get_pie_arg()
     print("=======here")
     print(res_num)
     return render_template('dashboard.html', res_list=res_list, **group,res_num=json.dumps(res_num))
@@ -87,7 +87,7 @@ def dashboard():
 
 @app.route('/ajax/res_num',methods=['GET','POST'])
 def get_res_num():
-    res_num = get_curl_res.get_pie_arg()
+    res_num = get_curlorping_res.get_pie_arg()
     return json.dumps(res_num)
 
 @app.route('/tables', methods=['GET', 'POST'])
