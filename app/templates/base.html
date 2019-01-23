@@ -46,22 +46,32 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
-            <li><a href="{{url_for('dashboard')}}"><i class="fa fa-dashboard"></i> DashBoard</a></li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-wrench"></i> Config <b
-                        class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="{{url_for('ping_table')}}">Ping</a></li>
-                    <li><a href="{{url_for('curl_table')}}">Curl</a></li>
-                </ul>
-            </li>
-            <!--<li><a href="{{url_for('charts')}}"><i class="fa fa-bar-chart-o"></i> Charts</a></li>-->
-            <!--<li><a href="{{url_for('tables')}}"><i class="fa fa-table"></i> Tables</a></li>-->
-            <!--<li><a href="{{url_for('forms')}}"><i class="fa fa-edit"></i> Forms</a></li>-->
-            <li><a href="{{url_for('map.mapconfig')}}"><i class="fa fa-edit"></i> Map Config </a></li>
+            <li style="color: white">All Seting</li>
+            <li><a href="{{url_for('dashboard')}}"><i class="fa fa-home"></i> Main DashBoard</a></li>
+            <li><a href="{{url_for('map.mapconfig')}}"><i class="fa fa-gears"></i> Raspberry Map Config </a></li>
             <li><a href="{{url_for('endpoint.raspberry')}}"><i class="fa fa-dashboard"></i> Raspberry DashBoard </a></li>
-            <li><a href="{{url_for('endpoint.endpoint_detail')}}"><i class="fa fa-edit"></i> Endpoint Detail </a></li>
+            <li><a href="{{url_for('endpoint.endpoint_detail')}}"><i class="fa fa-bolt"></i>  Raspberry Endpoint Detail </a></li>
+
+            <li style="color: white">Permanent Task</li>
+            <li><a href="{{url_for('ping_table')}}"><i class="fa fa-gear"></i> Permanent Ping Config </a></li>
+            <li><a href="{{url_for('curl_table')}}"><i class="fa fa-gear"></i> Permanent Curl Config </a></li>
+
+            <li style="color: white">Temporary Task</li>
+            <li><a href="{{url_for('temporarytaskping')}}"><i class="fa fa-gear"></i> Temporary Task Ping</a></li>
+            <li><a href="{{url_for('temporarytaskcurl')}}"><i class="fa fa-gear"></i> Temporary Task Curl</a></li>
+
+            <li style="color: white">Open-Falcon</li>
             <li><a href="{{url_for('openfalcon')}}"><i class="fa fa-edit"></i> OpenFalcon Detail </a></li>
+
+            <!--<li class="dropdown">-->
+                <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-wrench"></i> Config <b-->
+                        <!--class="caret"></b></a>-->
+                <!--<ul class="dropdown-menu">-->
+                    <!--<li><a href="{{url_for('ping_table')}}">Ping</a></li>-->
+                    <!--<li><a href="{{url_for('curl_table')}}">Curl</a></li>-->
+                <!--</ul>-->
+            <!--</li>-->
+
         </ul>
 
         <ul class="nav navbar-nav navbar-right navbar-user">
