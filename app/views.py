@@ -9,9 +9,11 @@ import json
 
 from app.map_bp import *
 from app.endpoint_bp import *
+from app.temporarytask_bp import *
 
 app.register_blueprint(map, url_prefix='/map')
 app.register_blueprint(endpoint,url_prefix='/endpoint')
+app.register_blueprint(temporarytask,url_prefix='/temporarytask')
 
 # def require_appkey(view_function):
 #     @wraps(view_function)
@@ -89,15 +91,8 @@ def forms():
 #  ===========================
 
 # 临时任务下发展示模块
-@app.route('/temporarytaskping', methods=['GET', 'POST'])
-# @login_required
-def temporarytaskping():
-    return render_template('temporarytask_ping.html')
+# 见temporarytask_bp
 
-@app.route('/temporarytaskcurl', methods=['GET', 'POST'])
-# @login_required
-def temporarytaskcurl():
-    return render_template('temporarytask_curl.html')
 
 # openfalcon页面
 @app.route('/openfalcon')
