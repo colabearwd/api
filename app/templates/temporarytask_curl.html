@@ -3,7 +3,7 @@
 {% block content %}
 <div id="wrapper" class="col-lg-8 col-lg-offset-2" style="margin-top: 2%">
     <form action="" method="post">
-        <label >Ping Temporary Task :</label> <br>
+        <label >Ping Temporary Task :</label> <label id="serialnum"> </label> <br>
 
         <label for="endpoint_select">Raspberry Node:</label>
         <select id="endpoint_select" onchange="func(this.value)" class="form-control col-md-4">
@@ -14,14 +14,17 @@
         </select>
 
         <div class="form-group">
-            <label >目标地址 : </label> <input type="text" class="form-control col-md-4" placeholder="www.baidu.com">
+            <label >目标地址 : </label> <input type="text" class="form-control col-md-2" placeholder="www.baidu.com">
         </div>
-        
+
         <div class="form-group">
-        <label >超时时间 : </label> <input type="text" class="form-control col-md-4" placeholder="超时时间默认事5s">
+        <label >超时时间 : </label> <input type="text" class="form-control col-md-2" placeholder="超时时间默认事5s">
         </div>
         <div class="form-group">
-        <label >ip版本 :   </label> <input type="text" class="form-control col-md-4" placeholder="若是ipv4,请填写4;若是ipv6,请填写6">
+        <label >ip版本 :   </label> <input type="text" class="form-control col-md-2" placeholder="若是ipv4,请填写4;若是ipv6,请填写6">
+        </div>
+        <div class="form-group">
+            <input type="button" value="提交" class="btn btn-primary btn-lg btn-block">
         </div>
     </form>
 
@@ -49,6 +52,15 @@
             xhttp.send("endpoint_id="+m);
 
         }
+
+        function getRandomCode(length) {
+            return Number(Math.random().toString().substr(3,length) + Date.now()).toString(36);
+        }
+
+        var serialnum = getRandomCode(10);
+        console.log(serialnum);
+        document.getElementById("serialnum").innerText = serialnum;
+
 </script>
 
 {% endblock %}

@@ -1,6 +1,6 @@
 #-*-coding:utf-8-*-
 from flask import Blueprint,request,render_template,redirect
-from app.models import Map
+from app.models import Map,Temporary_Ping_Res,Temporary_Curl_Res
 from app.of import get_history,get_dashboardnum,get_curlorping_res
 import json,time
 
@@ -30,3 +30,39 @@ def temporarytask_curl():
         print(request.getParameter('endpoint_select'))
         print(request.form.get('counter_select'))
         return render_template('temporarytask_curl.html')
+
+@temporarytask.route('/post_temp_pingres/',methods=['GET','POST'])
+def post_temp_pingres():
+    if request.method == 'GET':
+        pass
+    else:
+        print(request)
+        print(request.get_json())
+        res = request.get_json()
+        Temporary_Ping_Res.ping_serialnum=res['ping_serialnum']
+        Temporary_Ping_Res.ping_averagetime=res['ping_averagetime']
+        Temporary_Ping_Res.ping_lossrate=res['ping_lossrate']
+        Temporary_Ping_Res.ping_maxtime=res['ping_maxtime']
+        return 'ok'
+
+
+@temporarytask.route('/post_temp_curlres/', methods=['GET', 'POST'])
+def post_temp_curlres():
+    if request.method == 'GET':
+        pass
+    else:
+        print(request)
+        print(request.get_json())
+        res = request.get_json()
+        Temporary_Curl_Res.curl_connect=res['curl_connect']
+        Temporary_Curl_Res.curl_httpcode=res['curl_httpcode']
+        Temporary_Curl_Res.curl_httpconnect=res['curl_httpconnect']
+        Temporary_Curl_Res.curl_nameloopup=res['curl_nameloopup']
+        Temporary_Curl_Res.curl_pretransfer=res['curl_pretransfer']
+        Temporary_Curl_Res.curl_redirect=res['curl_redirect']
+        Temporary_Curl_Res.curl_serialnum=res['curl_serialnum']
+        Temporary_Curl_Res.curl_speeddownload=res['curl_speeddownload']
+        Temporary_Curl_Res.curl_total=res['curl_total']
+        Temporary_Curl_Res.curl_starttransfer=res['curl_starttransfer']
+        return 'ok'
+

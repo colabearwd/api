@@ -71,6 +71,28 @@ class Ping_Res(db.Model):
     ping_timestamp = db.Column(db.String(255))
     ping_value = db.Column(db.Float)
 
+class Temporary_Ping_Res(db.Model):
+    __tablename__ = 'temporary_pingres'
+    ping_serialnum = db.Column(db.String(255) , primary_key=True, nullable=False)
+    ping_lossrate = db.Column(db.String(255))
+    ping_maxtime = db.Column(db.String(255))
+    ping_averagetime = db.Column(db.String(255))
+
+
+class Temporary_Curl_Res(db.Model):
+    __tablename__ = 'temporary_curlres'
+    curl_serialnum = db.Column(db.String(255) , primary_key=True, nullable=False)
+    curl_httpcode = db.Column(db.String(255))
+    curl_httpconnect = db.Column(db.String(255))
+    curl_nameloopup = db.Column(db.String(255))
+    curl_redirect = db.Column(db.String(255))
+    curl_pretransfer = db.Column(db.String(255))
+    curl_connect = db.Column(db.String(255))
+    curl_starttransfer = db.Column(db.String(255))
+    curl_speeddownload = db.Column(db.String(255))
+    curl_total = db.Column(db.String(255))
+
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
