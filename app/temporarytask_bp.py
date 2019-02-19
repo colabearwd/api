@@ -4,6 +4,14 @@ from app.models import Map,Temporary_Ping_Res,Temporary_Curl_Res
 from app.of import get_history,get_dashboardnum,get_curlorping_res
 import json,time
 
+from time import sleep, time
+import sys
+
+import grpc
+
+from app.grpc_push.push_pb2 import SubmitRequest
+from app.grpc_push.push_pb2_grpc import MessageSyncStub
+
 
 temporarytask = Blueprint('temporarytask',__name__)
 
@@ -14,9 +22,28 @@ def temporarytask_ping():
         maplist = Map.query.filter_by().all()
         return render_template('temporarytask_ping.html',endpointlist = maplist)
     else:
+        print(request.form.get('serialnum'))
+        SERIALNUM=request.form.get('serialnum')
         print(request.form.get('endpoint_select'))
-        print(request.getParameter('endpoint_select'))
-        print(request.form.get('counter_select'))
+        NODE=request.form.get('endpoint_select')
+        print(request.form.get('targeturl'))
+        TARGETURL=request.form.get('targeturl')
+        print(request.form.get('packagesize'))
+        PACKAGESIZE=request.form.get('packagesize')
+        print(request.form.get('timeout'))
+        TIMEOUT=request.form.get('timeout')
+        print(request.form.get('ipversion'))
+        SWITCH=request.form.get('ipversion')
+        IPVERSION=request.form.get('ipversion')
+
+        MESSAGE="switch:{0};serialnum:{1};targeturl:{2};packagesize:{3};timeout:{4};ipversion:{5}".format(SWITCH,SERIALNUM,TARGETURL,PACKAGESIZE,TIMEOUT,IPVERSION)
+        print(MESSAGE)
+
+        conn = grpc.insecure_channel("202.120.83.82:8081")
+        client = MessageSyncStub(channel=conn)
+        client.SubmitMessage(SubmitRequest(channel=NODE, message=MESSAGE))
+
+
         return render_template('temporarytask_ping.html')
 
 
@@ -29,6 +56,7 @@ def temporarytask_curl():
         print(request.form.get('endpoint_select'))
         print(request.getParameter('endpoint_select'))
         print(request.form.get('counter_select'))
+
         return render_template('temporarytask_curl.html')
 
 @temporarytask.route('/post_temp_pingres/',methods=['GET','POST'])
