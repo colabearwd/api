@@ -64,7 +64,7 @@ def dashboard():
     res_num = get_curlorping_res.get_pie_arg()
     print("=======here")
     print(res_num)
-    return render_template('dashboard.html', res_list=res_list, **group,res_num=json.dumps(res_num))
+    return render_template('dashboard.html', res_list=res_list, **group, res_num=json.dumps(res_num))
 
 # 使用ajax的方式,返回curl饼图需要的数据
 @app.route('/ajax/res_num',methods=['GET','POST'])

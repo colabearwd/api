@@ -4,14 +4,8 @@ from app.models import Map,Temporary_Ping_Res,Temporary_Curl_Res
 from app.of import get_history,get_dashboardnum,get_curlorping_res
 import json,time
 
-from time import sleep, time
-import sys
-
-import grpc
-
-from app.grpc_push.push_pb2 import SubmitRequest
-from app.grpc_push.push_pb2_grpc import MessageSyncStub
-
+from app.grpc_push.producer_ping  import run as pingrun
+from app.grpc_push.producer_curl  import run as curlrun
 
 temporarytask = Blueprint('temporarytask',__name__)
 
@@ -39,10 +33,7 @@ def temporarytask_ping():
         MESSAGE="switch:{0};serialnum:{1};targeturl:{2};packagesize:{3};timeout:{4};ipversion:{5}".format(SWITCH,SERIALNUM,TARGETURL,PACKAGESIZE,TIMEOUT,IPVERSION)
         print(MESSAGE)
 
-        conn = grpc.insecure_channel("202.120.83.82:8081")
-        client = MessageSyncStub(channel=conn)
-        client.SubmitMessage(SubmitRequest(channel=NODE, message=MESSAGE))
-
+        pingrun(NODE,SWITCH,SERIALNUM,TARGETURL,PACKAGESIZE,TIMEOUT,IPVERSION)
 
         return render_template('temporarytask_ping.html')
 
