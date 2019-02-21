@@ -5,7 +5,7 @@ from app.of import get_history,get_dashboardnum,get_curlorping_res
 import json,time
 
 from app.grpc_push.producer_ping  import run as pingrun
-from app.grpc_push.producer_curl  import run as curlrun
+# from app.grpc_push.producer_curl  import run as curlrun
 
 temporarytask = Blueprint('temporarytask',__name__)
 
@@ -16,6 +16,8 @@ def temporarytask_ping():
         maplist = Map.query.filter_by().all()
         return render_template('temporarytask_ping.html',endpointlist = maplist)
     else:
+        print(request.form.get('ipversion'))
+        IPVERSION=request.form.get('ipversion')
         print(request.form.get('serialnum'))
         SERIALNUM=request.form.get('serialnum')
         print(request.form.get('endpoint_select'))
@@ -26,14 +28,13 @@ def temporarytask_ping():
         PACKAGESIZE=request.form.get('packagesize')
         print(request.form.get('timeout'))
         TIMEOUT=request.form.get('timeout')
-        print(request.form.get('ipversion'))
-        SWITCH=request.form.get('ipversion')
-        IPVERSION=request.form.get('ipversion')
+        print(request.form.get('count'))
+        COUNT = request.form.get('count')
 
-        MESSAGE="switch:{0};serialnum:{1};targeturl:{2};packagesize:{3};timeout:{4};ipversion:{5}".format(SWITCH,SERIALNUM,TARGETURL,PACKAGESIZE,TIMEOUT,IPVERSION)
+        MESSAGE="ipversion:{0};serialnum:{1};targeturl:{2};packagesize:{3};timeout:{4};count:{5}".format(COUNT,SERIALNUM,TARGETURL,PACKAGESIZE,TIMEOUT,IPVERSION)
         print(MESSAGE)
 
-        pingrun(NODE,SWITCH,SERIALNUM,TARGETURL,PACKAGESIZE,TIMEOUT,IPVERSION)
+        pingrun(NODE,IPVERSION,SERIALNUM,TARGETURL,PACKAGESIZE,TIMEOUT,COUNT)
 
         return render_template('temporarytask_ping.html')
 
