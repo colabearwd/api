@@ -12,6 +12,7 @@ import push_pb2_grpc
 
 from push_pb2 import *
 from push_pb2_grpc import *
+import command,re
 
 # ip , get the ip
 NODE = "rasp_ping"
@@ -21,7 +22,7 @@ def do_script(tempmessage):
     # get the args from the Server 
     
     print(tempmessage.split(';')[0].split(':')[1])
-    switch=tempmessage.split(';')[0].split(':')[1]
+    ipversion=tempmessage.split(';')[0].split(':')[1]
     print(tempmessage.split(';')[1].split(':')[1])
     serialnum=tempmessage.split(';')[1].split(':')[1]
     print(tempmessage.split(';')[2].split(':')[1])
@@ -31,26 +32,54 @@ def do_script(tempmessage):
     print(tempmessage.split(';')[4].split(':')[1])
     timeout=tempmessage.split(';')[4].split(':')[1]
     print(tempmessage.split(';')[5].split(':')[1])
-    ipversion=tempmessage.split(';')[5].split(':')[1]
+    count=tempmessage.split(';')[5].split(':')[1]
 
     # put the args into script 
 
     # put the results to API
+    if ipversion == 4 :
+        args_ipversion ="ping"
+    else :
+        args_ipversion = "ping6"
 
-    pass 
+    cmd = "{0} -s {1} -c {2} -W {3} -q {4} ".format(args_ipversion, packagesize ,count , timeout , targeturl)
+    status, output = command.getstatusoutput(cmd)
+
+    if (status == 0):
+        temp1 = re.search(r"received, \d+\.?\d{0,3}% packet loss", output)
+
+        temp2 = re.search(r"\d+\.?\d{0,3}\/\d+\.?\d{0,3}\/\d+\.?\d{0,3}\/", output)
+
+        t1 = re.findall(r"\d+\.?\d{0,3}", temp1.group())
+
+        t2 = re.findall(r"\d+\.?\d{0,3}", temp2.group())
+
+        res = []
+        res.append(t1[0])
+        res.append(t2[2])
+        res.append(t2[1])
+
+        return res
+
+def send2server():
+
+
+    pass
+
 
 def run():
-    conn = grpc.insecure_channel("localhost:8081")
+    conn = grpc.insecure_channel("202.120.83.82:8081")
     client = push_pb2_grpc.MessageSyncStub(channel=conn)
+    serverurl = "http://202.120.83.82:3456/temporarytask/post_temp_pingres/"
 
     try:
         response = client.PushMessageStream(ConnRequest(channel=NODE))
 
         for r in response:
             print(r.message)
-	    # tempmessage=r.message
+        # tempmessage=r.message
 	    
-	    do_script(r.message)
+	    res = do_script(r.message)
     
     except _Rendezvous as e:
         # here we can setup some retry mechanism.
