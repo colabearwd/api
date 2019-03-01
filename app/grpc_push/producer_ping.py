@@ -44,24 +44,25 @@ from app.grpc_push.push_pb2_grpc import MessageSyncStub
 # MESSAGE = "switch:{0};serialnum:{1};targeturl:{2};packagesize:{3};timeout:{4};ipversion:{5}".format(SWITCH,SERIALNUM,TARGETURL,PACKAGESIZE,TIMEOUT,IPVERSION)
 
 
-def run(a, b, c, d, e, f, g,):
+def run(a, b, c, d, e, f,g):
     NODE = a
 
-    SWITCH = b
+    IPVERSION = b
 
     SERIALNUM = c
 
     TARGETURL = d
     PACKAGESIZE = e
     TIMEOUT = f
-    IPVERSION = g
+    COUNT = g
 
-    MESSAGE = "switch:{0};serialnum:{1};targeturl:{2};packagesize:{3};timeout:{4};ipversion:{5}".format(SWITCH,
+    MESSAGE = "ipversion:{0};serialnum:{1};targeturl:{2};packagesize:{3};timeout:{4};count:{5}".format(IPVERSION,
                                                                                                         SERIALNUM,
                                                                                                         TARGETURL,
                                                                                                         PACKAGESIZE,
                                                                                                         TIMEOUT,
-                                                                                                        IPVERSION)
+                                                                                                        COUNT
+                                                                                                        )
     conn = grpc.insecure_channel("localhost:8081")
     client = MessageSyncStub(channel=conn)
 #    for i in range(1, 10000000):

@@ -12,11 +12,16 @@ import push_pb2_grpc
 
 from push_pb2 import *
 from push_pb2_grpc import *
-import command,re
+import commands
+import re
+import json
+import requests
 
 # ip , get the ip
-NODE = "rasp_ping"
-
+# NODE = "995"
+nodenamecmd="uname -n"
+status, output = commands.getstatusoutput(nodenamecmd)
+NODE=output
 
 def do_script(tempmessage):
     # get the args from the Server 
@@ -37,13 +42,16 @@ def do_script(tempmessage):
     # put the args into script 
 
     # put the results to API
-    if ipversion == 4 :
+    if ipversion == "4" :
         args_ipversion ="ping"
     else :
         args_ipversion = "ping6"
 
     cmd = "{0} -s {1} -c {2} -W {3} -q {4} ".format(args_ipversion, packagesize ,count , timeout , targeturl)
-    status, output = command.getstatusoutput(cmd)
+    print(cmd)
+    status, output = commands.getstatusoutput(cmd)
+    print(status)
+    print(output)
 
     if (status == 0):
         temp1 = re.search(r"received, \d+\.?\d{0,3}% packet loss", output)
@@ -58,19 +66,31 @@ def do_script(tempmessage):
         res.append(t1[0])
         res.append(t2[2])
         res.append(t2[1])
+        res.append(serialnum)
+	
+	print(res[0])
+	print(res[1])
+	print(res[2])
+	print(res[3])
 
+
+        push_url = "http://202.120.83.82:3456/temporarytask/post_temp_pingres/"
+	
+	payload = {'ping_serialnum':res[3],'ping_lossrate':res[0],'ping_maxtime':res[1],'ping_averagetime':res[2]}
+	
+	print(json.dumps(payload))
+
+	#r = requests.post(push_url, json=json.dumps(payload))
+	#r = requests.post(push_url, json=json.loads(payload))
+	r = requests.post(push_url, json=payload)
+	
+	
         return res
-
-def send2server():
-
-
-    pass
 
 
 def run():
     conn = grpc.insecure_channel("202.120.83.82:8081")
     client = push_pb2_grpc.MessageSyncStub(channel=conn)
-    serverurl = "http://202.120.83.82:3456/temporarytask/post_temp_pingres/"
 
     try:
         response = client.PushMessageStream(ConnRequest(channel=NODE))
@@ -95,3 +115,4 @@ def run():
 
 if __name__ == '__main__':
     run()
+
