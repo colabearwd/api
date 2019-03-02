@@ -21,7 +21,7 @@ import requests
 # NODE = "995"
 nodenamecmd="uname -n"
 status, output = commands.getstatusoutput(nodenamecmd)
-NODE=output
+NODE=output+"_ping"
 
 def do_script(tempmessage):
     # get the args from the Server 

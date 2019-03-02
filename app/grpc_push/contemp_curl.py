@@ -19,7 +19,7 @@ import requests
 
 nodenamecmd = "uname -n"
 status, output = commands.getstatusoutput(nodenamecmd)
-NODE = output
+NODE = output+"_curl"
 
 
 def do_script(tempmessage):

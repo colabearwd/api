@@ -26,6 +26,7 @@ def temporarytask_ping():
         serialnum = request.form.get('serialnum')
         print(request.form.get('endpoint_select'))
         NODE = request.form.get('endpoint_select')
+        NODE = NODE + "_ping"
         print(request.form.get('targeturl'))
         TARGETURL = request.form.get('targeturl')
         print(request.form.get('packagesize'))
@@ -64,6 +65,7 @@ def temporarytask_curl():
         serialnum = request.form.get('serialnum')
         print(request.form.get('endpoint_select'))
         NODE = request.form.get('endpoint_select')
+        NODE = NODE + "_curl"
         print(request.form.get('targeturl'))
         TARGETURL = request.form.get('targeturl')
         print(request.form.get('timeout'))
