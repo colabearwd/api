@@ -2,7 +2,7 @@
 from app.of.get_auth import get_Apitoken
 import requests
 import json
-from config import name, password, api_addr
+from config import name, password, api_addr,api_ip
 from app.models import Map
 from app.of.get_endpoint_counter import get_endpoint, get_endpoint_counter
 
@@ -63,7 +63,8 @@ def get_pinglist_number():
     获取 ping的个数
     :return:
     """
-    r = requests.get("http://202.120.83.82:3456/api/ping")
+    path = "http://{}:3456/api/ping".format(api_ip)
+    r = requests.get(path)
 
     if r.status_code != 200:
         # raise Exception("%s %s" % (r.status_code, r.text))
@@ -77,7 +78,8 @@ def get_curllist_number():
     获取 curl的个数
     :return:
     """
-    r = requests.get("http://202.120.83.82:3456/api/curl")
+    path = "http://{}:3456/api/curl".format(api_ip)
+    r = requests.get(path)
 
     if r.status_code != 200:
         # raise Exception("%s %s" % (r.status_code, r.text))

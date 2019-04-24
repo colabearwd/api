@@ -1,3 +1,4 @@
+#-*-coding:utf-8-*-
 # VERSION
 
 VERSION = "0.0.1"
@@ -18,8 +19,8 @@ name = ""
 # openfalcon passwd
 password = ""
 # apiaddr ip is openfalcon server ip
-api_addr = "http://*:8080/api/v1"
-
+api_addr = "http://server_ip:8080/api/v1"
+api_ip = "server_ip"
 
 
 
