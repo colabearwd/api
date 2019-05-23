@@ -201,7 +201,7 @@ def curl_delete(id=None):
 
 #  永久任务-更新api====================================
 @app.route("/ping_update/<int:id>", methods=['GET', 'POST'])
-@login_required
+#@login_required
 def ping_update(id=None):
     form = PingForm()
     result = args_ping.query.filter_by(args_id=id).first()
@@ -218,7 +218,7 @@ def ping_update(id=None):
     return render_template('ping_update.html', form=form, result=result)
 
 @app.route("/curl_update/<int:id>", methods=['GET', 'POST'])
-@login_required
+#@login_required
 def curl_update(id=None):
     form = CurlForm()
     result = args_curl.query.filter_by(args_id=id).first()
