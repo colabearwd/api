@@ -174,7 +174,7 @@ PS：镜像可以在百度云分享链接内找到
 
 PS：工具可以在百度云分享链接内找到
 
-![1560186601696](C:\Users\ldm\AppData\Local\Temp\1560186601696.png)
+![1560240155343](C:\Users\ldm\AppData\Local\Temp\1560240155343.png)
 
 ### 3.1.4进入到系统
 
@@ -282,7 +282,7 @@ python setup.py install
 
 ### 2.4.2在plugin中的script使用这个库
 
-**demo**
+**demo**（这只是个使用案例与安装教程无关）
 
 \#!/usr/bin/python
 
@@ -337,19 +337,19 @@ bash auto.sh
 
 ### 2.5.3在dashboard设置plugin的运行的节点 
 
-![1557910360303](C:\Users\ldm\AppData\Local\Temp\1560186638418.png)
+![1557910360303](C:\Users\ldm\AppData\Local\Temp\1560240177104.png)
 
 step1：创建hostgroup
 
-![1557910375416](C:\Users\ldm\AppData\Local\Temp\1560186656489.png)
+![1557910375416](C:\Users\ldm\AppData\Local\Temp\1560240197845.png)
 
 step2：添加host和添加plugin
 
-![1557910387546](C:\Users\ldm\AppData\Local\Temp\1560186672212.png)
+![1557910387546](C:\Users\ldm\AppData\Local\Temp\1560240214506.png)
 
 添加这个hostgroup的host
 
-![1557910401554](C:\Users\ldm\AppData\Local\Temp\1560186681806.png)
+![1557910401554](C:\Users\ldm\AppData\Local\Temp\1560240229653.png)
 
 添加这个hostgroup的需要执行的plugin的文件夹
 
@@ -381,7 +381,7 @@ git clone https://github.com/colabearwd/xsentialgrpc.git
 
 mv xsentialgrpc/ grpc_push
 
-cd g	rpc_push
+cd grpc_push
 
 git checkout dev_grpc
 
